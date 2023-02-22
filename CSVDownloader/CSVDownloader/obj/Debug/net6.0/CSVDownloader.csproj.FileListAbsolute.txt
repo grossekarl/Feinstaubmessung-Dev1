@@ -1,0 +1,15 @@
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\bin\Debug\net6.0\CSVDownloader.exe
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\bin\Debug\net6.0\CSVDownloader.deps.json
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\bin\Debug\net6.0\CSVDownloader.runtimeconfig.json
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\bin\Debug\net6.0\CSVDownloader.dll
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\bin\Debug\net6.0\CSVDownloader.pdb
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\CSVDownloader.csproj.AssemblyReference.cache
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\CSVDownloader.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\CSVDownloader.AssemblyInfoInputs.cache
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\CSVDownloader.AssemblyInfo.cs
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\CSVDownloader.csproj.CoreCompileInputs.cache
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\CSVDownloader.dll
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\refint\CSVDownloader.dll
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\CSVDownloader.pdb
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\CSVDownloader.genruntimeconfig.cache
+C:\Users\miwagner\source\repos\CSVDownloader\CSVDownloader\obj\Debug\net6.0\ref\CSVDownloader.dll
