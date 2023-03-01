@@ -31,7 +31,7 @@ namespace CSVDownloader
 
 
             // Pfad zur CSV-Datei
-            string csvFilePath = @"{Laufwerk ändern}";
+            string csvFilePath = @"/home/oem/Dekstop/TBS1/Git-Arbeit/Test/Import.csv";
 
             // CSV-Datei öffnen
             StreamWriter csvFile = new StreamWriter(csvFilePath);
