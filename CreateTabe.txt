@@ -1,0 +1,25 @@
+CREATE TABLE sensor 
+(sensor_id INTEGER PRIMARY KEY,
+sensor_typ TEXT); 
+
+CREATE TABLE standort
+(standort_id INTEGER PRIMARY KEY,
+standort TEXT,
+breitegrad INTEGER,
+laengegrad INTEGER); 
+
+CREATE TABLE feinstaubsensor
+(sds11_id INTEGER PRIMARY KEY,
+zeitstempel REAL,
+p1 REAL,
+durP1 REAL,
+ratioP1 REAL,
+p2 REAL,
+durP2 REAL,
+ratioP2 REAL); 
+
+CREATE TABLE tfsensor
+(dht22_id INTEGER PRIMARY KEY,
+luftfeuchtigkeit REAL,
+temperatur REAL,
+zeitstempel TEXT);
