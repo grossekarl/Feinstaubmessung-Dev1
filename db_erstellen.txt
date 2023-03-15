@@ -1,10 +1,5 @@
-
-
-
-DROP DATABASE IF EXISTS feinstaupmessung;
-CREATE DATABASE IF NOT EXISTS feinstaupmessung;
-
-
+DROP DATABASE IF EXISTS feinstaubmessung;
+CREATE DATABASE IF NOT EXISTS feinstaubmessung;
 
 CREATE TABLE sensor (
 sensor_id INTEGER NOT NULL PRIMARY KEY,
@@ -13,19 +8,22 @@ sensor_typ TEXT,
 
 CREATE TABLE standort(
 standort_id INTEGER PRIMARY KEY,
-standort TEXT,breitegrad INTEGER,
+standort TEXT,
+breitegrad INTEGER,
 laengegrad INTEGER
 ); 
 
 CREATE TABLE feinstaubsensor(
 sds11_id INTEGER PRIMARY KEY,
-zeitstempel REAL,
+zeitstempel TEXT,
 p1 REAL,
 durP1 REAL,
 ratioP1 REAL,
 p2 REAL,
 durP2 REAL,
 ratioP2 REAL,
+sensor_id INTEGER,
+standort_id INTEGER,
 FOREIGN KEY (sensor_id) REFERENCES sensor (sensor_id),
 FOREIGN KEY (standort_id) REFERENCES standort (standort_id)
 ); 
