@@ -82,18 +82,8 @@ class DBImport:
         except Exception as error:
             print(str(error))
 
-    def show(self):
-        try:
-            self.cursor.execute("SELECT * FROM finedust WHERE finedust_id=5")
-            print(self.cursor.fetchone())
-            self.cursor.execute("SELECT * FROM tempandhumid WHERE tempandhumid_id=5")
-            print(self.cursor.fetchone())
-        except Exception as error:
-            print(str(error))
-
     def main(self):
         self.connectdb()
         self.createtables()
         self.importcsv()
-        self.show()
         self.connection.close()

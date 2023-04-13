@@ -49,7 +49,7 @@ class CSVDownloader:
             try:
                 urlResponse = urllib.request.urlopen(sdsUrl)
             except (urllib.error.HTTPError, urllib.error.URLError):
-                print(sdsUrl + " not found")
+                print("Die Daten von ", sdsUrl, " konnten nicht gefunden werden")
             else:
                 csvRows = [l.decode('utf-8') for l in urlResponse.readlines()]
                 reader = csv.DictReader(csvRows, delimiter=";")
@@ -58,7 +58,7 @@ class CSVDownloader:
             try:
                 urlResponse = urllib.request.urlopen(dhtUrl)
             except (urllib.error.HTTPError, urllib.error.URLError):
-                print(dhtUrl + " not found")
+                print("Die Daten von ", dhtUrl, " konnten nicht gefunden werden")
             else:
                 csvRows = [l.decode('utf-8') for l in urlResponse.readlines()]
                 reader = csv.DictReader(csvRows, delimiter=";")
