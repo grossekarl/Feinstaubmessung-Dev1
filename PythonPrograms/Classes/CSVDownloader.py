@@ -80,3 +80,5 @@ class CSVDownloader:
             sdsWriter.writerows(sdsReader)
         for dhtReader in readers['dht']:
             dhtWriter.writerows(dhtReader)
+        sdsFile.close()
+        dhtFile.close()
