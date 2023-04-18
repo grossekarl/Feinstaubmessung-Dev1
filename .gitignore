@@ -1,2 +1,5 @@
 venv
 PythonPrograms/Classes/__pycache__
+PythonPrograms/CSVFiles/Daten-DHT.csv
+PythonPrograms/CSVFiles/Daten-SDS.csv
+PythonPrograms/DB/particlesmeasurements.db
