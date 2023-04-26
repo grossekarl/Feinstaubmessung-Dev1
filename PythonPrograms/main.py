@@ -61,7 +61,7 @@ if answer == 'y':
         if answer3 == 'stop':
             end()
         if answer3 == 'y':
-            print("Welche Abfrage wollen Sie ausführen?\n 1. Maximale, Minimale und Durchschittliche Temperatur eines Tages\n 2. Maximale, Minimale und Durchschittliche Luftfeuchtigkeit eines Tages\n 3. Beide\n 1/2/3")
+            print("Welche Abfrage wollen Sie ausführen?\n 1. Maximale, Minimale und Durchschittliche Temperatur eines Tages\n 2. Maximale, Minimale und Durchschittliche Luftfeuchtigkeit eines Tages\n 3. Maximale, Minimale und Durchschittliche Feinstaub eines Tages \n 4. Alle\n 1/2/3/4")
             sqlquery = input()
             print("Von wann sollen die Werte ausgegeben werden?")
             print("Datum(YYYY-MM-DD): ")
@@ -78,7 +78,7 @@ if answer == 'y':
         if answer3 == 'stop':
             end()
         if answer3 == 'y':
-            print("Welche Abfrage wollen Sie ausführen?\n 1. Maximale, Minimale und Durchschittliche Temperatur eines Tages\n 2. Maximale, Minimale und Durchschittliche Luftfeuchtigkeit eines Tages\n 3. Beide\n 1/2/3")
+            print("Welche Abfrage wollen Sie ausführen?\n 1. Maximale, Minimale und Durchschittliche Temperatur eines Tages\n 2. Maximale, Minimale und Durchschittliche Luftfeuchtigkeit eines Tages\n 3. Maximale, Minimale und Durchschittliche Feinstaub eines Tages \n 4. Alle\n 1/2/3/4")
             sqlquery = input()
             print("Von wann sollen die Werte ausgegeben werden?")
             print("Datum(YYYY-MM-DD): ")
@@ -103,7 +103,7 @@ if answer == 'n':
         if answer3 == 'stop':
             end()
         if answer3 == 'y':
-            print("Welche Abfrage wollen Sie ausführen?\n 1. Maximale, Minimale und Durchschittliche Temperatur eines Tages\n 2. Maximale, Minimale und Durchschittliche Luftfeuchtigkeit eines Tages\n 3. Beide\n 1/2/3")
+            print("Welche Abfrage wollen Sie ausführen?\n 1. Maximale, Minimale und Durchschittliche Temperatur eines Tages\n 2. Maximale, Minimale und Durchschittliche Luftfeuchtigkeit eines Tages\n 3. Maximale, Minimale und Durchschittliche Feinstaub eines Tages \n 4. Alle\n 1/2/3/4")
             sqlquery = input()
             print("Von wann sollen die Werte ausgegeben werden?")
             print("Datum(YYYY-MM-DD): ")
@@ -120,7 +120,7 @@ if answer == 'n':
         if answer3 == 'stop':
             end()
         if answer3 == 'y':
-            print("Welche Abfrage wollen Sie ausführen?\n 1. Maximale, Minimale und Durchschittliche Temperatur eines Tages\n 2. Maximale, Minimale und Durchschittliche Luftfeuchtigkeit eines Tages\n 3. Beide\n 1/2/3")
+            print("Welche Abfrage wollen Sie ausführen?\n 1. Maximale, Minimale und Durchschittliche Temperatur eines Tages\n 2. Maximale, Minimale und Durchschittliche Luftfeuchtigkeit eines Tages\n 3. Maximale, Minimale und Durchschittliche Feinstaub eines Tages \n 4. Alle\n 1/2/3/4")
             sqlquery = input()
             print("Von wann sollen die Werte ausgegeben werden?")
             print("Datum(YYYY-MM-DD): ")
