@@ -48,6 +48,23 @@ class SQLQueries:
         except Exception as error:
             print(str(error))
 
+    def selectFinedust(self):
+        try:
+            query = "SELECT MAX(P1) AS max_p1, MIN(P1) as min_p1, AVG(P1) as avg_p1, MAX(P2) AS max_p2, MIN(P2) as min_p2, AVG(P2) as avg_p2 FROM finedust WHERE timestamp LIKE '" + self.date + "%';"
+            self.cursor.execute(query)
+            result = list(self.cursor.fetchone())
+            print("---------------------------------------------")
+            print("Maximale Feinstaub P1: ", round(result[0], 2))
+            print("Minimale Feinstaub P1: ", round(result[1], 2))
+            print("Durchschnittliche Feinstaub P1: ", round(result[2], 2))
+            print("---------------------------------------------")
+            print("Maximale Feinstaub P2: ", round(result[3], 2))
+            print("Minimale Feinstaub P2: ", round(result[4], 2))
+            print("Durchschnittliche Feinstaub P2: ", round(result[5], 2))
+            print("---------------------------------------------")
+        except Exception as error:
+            print(str(error))
+
     def main(self, query):
         self.buildconnection()
         if query == '1':
@@ -55,6 +72,9 @@ class SQLQueries:
         if query == '2':
             self.selectHumidity()
         if query == '3':
+            self.selectFinedust()
+        if query == '4':
             self.selectTemperature()
             self.selectHumidity()
+            self.selectFinedust()
         self.closeconnection()
