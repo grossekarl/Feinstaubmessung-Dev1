@@ -2,83 +2,84 @@ import datetime
 import urllib.request
 import urllib.error
 import csv
-import sys
+
 
 class CSVDownloader:
-    def __init__(self, path, startDate, endDate):
-        self.sensorURL = "https://archive.sensor.community/"
-        self.startDate = datetime.datetime.strptime(startDate, '%Y-%m-%d')
-        self.endDate = datetime.datetime.strptime(endDate, '%Y-%m-%d')
+    def __init__(self, path, start_date, end_date):
+        self.sensor_url = "https://archive.sensor.community/"
+        self.start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        self.end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
         self.path = path
 
     def main(self):
-        urlLists = self.geturls()
-        readerLists = self.readcsv(urlLists)
-        self.writecsv(readerLists)
+        urlLists = self.get_urls()
+        reader_lists = self.read_csv(urlLists)
+        self.write_csv(reader_lists)
+        print("Die CSV-Daten befinden sich nun im Ordner: ", self.path / 'CSVFiles')
 
-    def geturls(self):
-        delta = datetime.timedelta(days=1)
-        date = self.startDate
-        sdsList = []
-        dhtList = []
-        while date <= self.endDate:
+    def get_urls(self):
+        add_a_day = datetime.timedelta(days=1)
+        date = self.start_date
+        sds_list = []
+        dht_list = []
+        while date <= self.end_date:
             if 2022 >= date.year >= 2015:
-                sensorSDS011 = self.sensorURL + date.strftime("%Y") + "/" + date.strftime(
+                sensor_SDS011 = self.sensor_url + date.strftime("%Y") + "/" + date.strftime(
                     "%Y-%m-%d") + '/' + date.strftime(
                     "%Y-%m-%d") + '_sds011_sensor_3659.csv'
-                sensorDHT22 = self.sensorURL + date.strftime("%Y") + "/" + date.strftime(
+                sensor_DHT22 = self.sensor_url + date.strftime("%Y") + "/" + date.strftime(
                     "%Y-%m-%d") + '/' + date.strftime(
                     "%Y-%m-%d") + '_dht22_sensor_3660.csv'
-                sdsList.append(sensorSDS011)
-                dhtList.append(sensorDHT22)
-                date = (date + delta)
+                sds_list.append(sensor_SDS011)
+                dht_list.append(sensor_DHT22)
+                date = (date + add_a_day)
             else:
-                sensorSDS011 = self.sensorURL + date.strftime("%Y-%m-%d") + '/' + date.strftime(
+                sensor_SDS011 = self.sensor_url + date.strftime("%Y-%m-%d") + '/' + date.strftime(
                     "%Y-%m-%d") + '_sds011_sensor_3659.csv'
-                sensorDHT22 = self.sensorURL + date.strftime("%Y-%m-%d") + '/' + date.strftime(
+                sensor_DHT22 = self.sensor_url + date.strftime("%Y-%m-%d") + '/' + date.strftime(
                     "%Y-%m-%d") + '_dht22_sensor_3660.csv'
-                sdsList.append(sensorSDS011)
-                dhtList.append(sensorDHT22)
-                date = (date + delta)
-        return {"sds": sdsList, "dht": dhtList}
+                sds_list.append(sensor_SDS011)
+                dht_list.append(sensor_DHT22)
+                date = (date + add_a_day)
+        return {"sds": sds_list, "dht": dht_list}
 
-    def readcsv(self, urls):
-        sdsReaders = []
-        dhtReaders = []
-        for sdsUrl in urls['sds']:
+    def read_csv(self, urls):
+        sds_readers = []
+        dht_readers = []
+        for sds_url in urls['sds']:
             try:
-                urlResponse = urllib.request.urlopen(sdsUrl)
+                url_response = urllib.request.urlopen(sds_url)
             except (urllib.error.HTTPError, urllib.error.URLError):
-                print("Die Daten von ", sdsUrl, " konnten nicht gefunden werden")
+                print("Die Daten von ", sds_url, " konnten nicht gefunden werden")
             else:
-                csvRows = [l.decode('utf-8') for l in urlResponse.readlines()]
-                reader = csv.DictReader(csvRows, delimiter=";")
-                sdsReaders.append(reader)
-        for dhtUrl in urls['dht']:
+                csv_rows = [lines.decode('utf-8') for lines in url_response.readlines()]
+                reader = csv.DictReader(csv_rows, delimiter=";")
+                sds_readers.append(reader)
+        for dht_url in urls['dht']:
             try:
-                urlResponse = urllib.request.urlopen(dhtUrl)
+                url_response = urllib.request.urlopen(dht_url)
             except (urllib.error.HTTPError, urllib.error.URLError):
-                print("Die Daten von ", dhtUrl, " konnten nicht gefunden werden")
+                print("Die Daten von ", dht_url, " konnten nicht gefunden werden")
             else:
-                csvRows = [l.decode('utf-8') for l in urlResponse.readlines()]
-                reader = csv.DictReader(csvRows, delimiter=";")
-                dhtReaders.append(reader)
-        return {"sds": sdsReaders, "dht": dhtReaders}
+                csv_rows = [lines.decode('utf-8') for lines in url_response.readlines()]
+                reader = csv.DictReader(csv_rows, delimiter=";")
+                dht_readers.append(reader)
+        return {"sds": sds_readers, "dht": dht_readers}
 
-    def writecsv(self, readers):
-        sdsFile = open(self.path / "CSVFiles" / "Daten-SDS.csv", "w")
-        dhtFile = open(self.path / "CSVFiles" / "Daten-DHT.csv", "w")
-        sdsWriter = csv.DictWriter(sdsFile,
-                                   fieldnames=["sensor_id", "sensor_type", "location", "lat", "lon", "timestamp", "P1",
-                                               "durP1", "ratioP1", "P2", "durP2", "ratioP2"])
-        sdsWriter.writeheader()
-        dhtWriter = csv.DictWriter(dhtFile,
-                                   fieldnames=["sensor_id", "sensor_type", "location", "lat", "lon", "timestamp",
-                                               "temperature", "humidity"])
-        dhtWriter.writeheader()
-        for sdsReader in readers['sds']:
-            sdsWriter.writerows(sdsReader)
-        for dhtReader in readers['dht']:
-            dhtWriter.writerows(dhtReader)
-        sdsFile.close()
-        dhtFile.close()
+    def write_csv(self, readers):
+        sds_file = open(self.path / "CSVFiles" / "Daten-SDS.csv", "w")
+        dht_file = open(self.path / "CSVFiles" / "Daten-DHT.csv", "w")
+        sds_writer = csv.DictWriter(sds_file,
+                                    fieldnames=["sensor_id", "sensor_type", "location", "lat", "lon", "timestamp", "P1",
+                                                "durP1", "ratioP1", "P2", "durP2", "ratioP2"])
+        sds_writer.writeheader()
+        dht_writer = csv.DictWriter(dht_file,
+                                    fieldnames=["sensor_id", "sensor_type", "location", "lat", "lon", "timestamp",
+                                                "temperature", "humidity"])
+        dht_writer.writeheader()
+        for sds_reader in readers['sds']:
+            sds_writer.writerows(sds_reader)
+        for dht_reader in readers['dht']:
+            dht_writer.writerows(dht_reader)
+        sds_file.close()
+        dht_file.close()
