@@ -24,9 +24,12 @@ class SQLQueries:
 
     def selectTemperature(self):
         try:
-            query = "SELECT MAX(temperature) AS max_temp, MIN(temperature) as min_temp, AVG(temperature) as avg_temp FROM tempandhumid WHERE timestamp LIKE '" + self.date + "%';"
-            self.cursor.execute(query)
+            query = "SELECT MAX(temperature) AS max_temp, MIN(temperature) as min_temp, AVG(temperature) as avg_temp FROM tempandhumid WHERE timestamp LIKE ?;"
+            self.cursor.execute(query, (self.date + '%',))
             result = list(self.cursor.fetchone())
+            if None in result:
+                print('Die Abfrage hat keine Werte zurückgegeben.')
+                return
             print("---------------------------------------------")
             print("Maximale Temperatur: ", round(result[0], 2))
             print("Minimale Temperatur: ", round(result[1], 2))
@@ -37,9 +40,12 @@ class SQLQueries:
 
     def selectHumidity(self):
         try:
-            query = "SELECT MAX(humidity) AS max_humid, MIN(humidity) as min_humid, AVG(humidity) as avg_humid FROM tempandhumid WHERE timestamp LIKE '" + self.date + "%';"
-            self.cursor.execute(query)
+            query = "SELECT MAX(humidity) AS max_humid, MIN(humidity) as min_humid, AVG(humidity) as avg_humid FROM tempandhumid WHERE timestamp LIKE ?;"
+            self.cursor.execute(query, (self.date + '%',))
             result = list(self.cursor.fetchone())
+            if None in result:
+                print('Die Abfrage hat keine Werte zurückgegeben.')
+                return
             print("---------------------------------------------")
             print("Maximale Luftfeuchtigkeit: ", round(result[0], 2))
             print("Minimale Luftfeuchtigkeit: ", round(result[1], 2))
@@ -50,9 +56,12 @@ class SQLQueries:
 
     def selectFinedust(self):
         try:
-            query = "SELECT MAX(P1) AS max_p1, MIN(P1) as min_p1, AVG(P1) as avg_p1, MAX(P2) AS max_p2, MIN(P2) as min_p2, AVG(P2) as avg_p2 FROM finedust WHERE timestamp LIKE '" + self.date + "%';"
-            self.cursor.execute(query)
+            query = "SELECT MAX(P1) AS max_p1, MIN(P1) as min_p1, AVG(P1) as avg_p1, MAX(P2) AS max_p2, MIN(P2) as min_p2, AVG(P2) as avg_p2 FROM finedust WHERE timestamp LIKE ?;"
+            self.cursor.execute(query, (self.date + '%', ))
             result = list(self.cursor.fetchone())
+            if None in result:
+                print('Die Abfrage hat keine Werte zurückgegeben.')
+                return
             print("---------------------------------------------")
             print("Maximale Feinstaub P1: ", round(result[0], 2))
             print("Minimale Feinstaub P1: ", round(result[1], 2))
