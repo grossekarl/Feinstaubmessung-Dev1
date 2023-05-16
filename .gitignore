@@ -1,4 +1,5 @@
 venv
+__pycache__
 PythonPrograms/Classes/__pycache__
 PythonPrograms/CSVFiles/Daten-DHT.csv
 PythonPrograms/CSVFiles/Daten-SDS.csv
