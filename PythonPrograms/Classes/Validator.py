@@ -21,4 +21,3 @@ def validate_date(date_text):
 def validate_start_and_end_date(start_date, end_date):
     if start_date > end_date:
         raise SystemExit("Das End-Datum muss jünger sein als das Start-Datum")
-
