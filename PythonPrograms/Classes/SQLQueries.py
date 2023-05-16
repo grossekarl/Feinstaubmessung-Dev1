@@ -22,6 +22,21 @@ class SQLQueries:
         except Exception as error:
             print(str(error))
 
+    def tables_exist(self):
+        try:
+            result = []
+            query = "SELECT name FROM sqlite_master WHERE type='table' AND name='tempandhumid';"
+            self.cursor.execute(query)
+            result.append(self.cursor.fetchone())
+            query = "SELECT name FROM sqlite_master WHERE type='table' AND name='finedust';"
+            self.cursor.execute(query)
+            result.append(self.cursor.fetchone())
+            if None in result:
+                print('Es wurden noch keine Daten in die Datenbank importiert. Es können keine SQL-Abfragen ausgeführt werden.')
+                raise SystemExit
+        except Exception as error:
+            print(str(error))
+
     def select_temperature(self):
         try:
             query = "SELECT MAX(temperature) AS max_temp, MIN(temperature) as min_temp, AVG(temperature) as avg_temp FROM tempandhumid WHERE timestamp LIKE ?;"
@@ -76,6 +91,7 @@ class SQLQueries:
 
     def main(self, query):
         self.build_connection()
+        self.tables_exist()
         if query == '1':
             self.select_temperature()
         if query == '2':
