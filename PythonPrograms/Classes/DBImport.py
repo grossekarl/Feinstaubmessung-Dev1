@@ -1,6 +1,5 @@
 import sqlite3
 import csv
-import sys
 
 
 class DBImport:
@@ -9,42 +8,42 @@ class DBImport:
         self.cursor = None
         self.connection = None
 
-    def connectdb(self):
+    def connect_db(self):
         try:
             self.connection = sqlite3.connect(self.path / "DB" / "particlesmeasurements.db")
             self.cursor = self.connection.cursor()
         except Exception as error:
             print(str(error))
 
-    def createtables(self):
+    def create_tables(self):
         try:
             # Delete and recreate table for finedust
             self.cursor.execute("DROP TABLE IF EXISTS finedust;")
             self.connection.commit()
-            finedustQueryFile = open(self.path / "DB" / "createfinedust.sql", "r")
-            finedustQuery = finedustQueryFile.read()
-            self.cursor.execute(finedustQuery)
+            finedust_query_file = open(self.path / "DB" / "createfinedust.sql", "r")
+            finedust_query = finedust_query_file.read()
+            self.cursor.execute(finedust_query)
             self.connection.commit()
-            finedustQueryFile.close()
+            finedust_query_file.close()
         except Exception as error:
             print(str(error))
         try:
             # Delete and recreate table for temperature and humidity
             self.cursor.execute("DROP TABLE IF EXISTS tempandhumid;")
             self.connection.commit()
-            tempandhumidQueryFile = open(self.path / "DB" / "createtempandhumid.sql", "r")
-            tempandhumidQuery = tempandhumidQueryFile.read()
-            self.cursor.execute(tempandhumidQuery)
+            tempandhumid_query_file = open(self.path / "DB" / "createtempandhumid.sql", "r")
+            tempandhumid_query = tempandhumid_query_file.read()
+            self.cursor.execute(tempandhumid_query)
             self.connection.commit()
-            tempandhumidQueryFile.close()
+            tempandhumid_query_file.close()
         except Exception as error:
             print(str(error))
 
-    def importcsv(self):
+    def import_csv(self):
         # import csv data of sds011 in db table finedust
         try:
-            sdscsv = open(self.path / "CSVFiles" / "Daten-SDS.csv", "r")
-            reader = csv.DictReader(sdscsv)
+            sds_csv = open(self.path / "CSVFiles" / "Daten-SDS.csv", "r")
+            reader = csv.DictReader(sds_csv)
             values = []
             for row in reader:
                 values.append((row['sensor_id'],
@@ -65,8 +64,8 @@ class DBImport:
             print(str(error))
         # import csv data of dht22 in db table tempandhumid
         try:
-            dhtcsv = open(self.path / "CSVFiles" / "Daten-DHT.csv", "r")
-            reader = csv.DictReader(dhtcsv)
+            dht_csv = open(self.path / "CSVFiles" / "Daten-DHT.csv", "r")
+            reader = csv.DictReader(dht_csv)
             values = []
             for row in reader:
                 values.append((row['sensor_id'],
@@ -83,7 +82,7 @@ class DBImport:
             print(str(error))
 
     def main(self):
-        self.connectdb()
-        self.createtables()
-        self.importcsv()
+        self.connect_db()
+        self.create_tables()
+        self.import_csv()
         self.connection.close()

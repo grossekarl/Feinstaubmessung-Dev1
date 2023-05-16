@@ -8,24 +8,39 @@ class SQLQueries:
         self.connection = None
         self.date = date
 
-    def buildconnection(self):
+    def build_connection(self):
         try:
             self.connection = sqlite3.connect(self.path / "DB" / "particlesmeasurements.db")
             self.cursor = self.connection.cursor()
         except Exception as error:
             print(str(error))
 
-    def closeconnection(self):
+    def close_connection(self):
         try:
             self.connection.commit()
             self.connection.close()
         except Exception as error:
             print(str(error))
 
-    def selectTemperature(self):
+    def tables_exist(self):
+        try:
+            result = []
+            query = "SELECT name FROM sqlite_master WHERE type='table' AND name='tempandhumid';"
+            self.cursor.execute(query)
+            result.append(self.cursor.fetchone())
+            query = "SELECT name FROM sqlite_master WHERE type='table' AND name='finedust';"
+            self.cursor.execute(query)
+            result.append(self.cursor.fetchone())
+            if None in result:
+                print('Es wurden noch keine Daten in die Datenbank importiert. Es können keine SQL-Abfragen ausgeführt werden.')
+                raise SystemExit
+        except Exception as error:
+            print(str(error))
+
+    def select_temperature(self):
         try:
             query = "SELECT MAX(temperature) AS max_temp, MIN(temperature) as min_temp, AVG(temperature) as avg_temp FROM tempandhumid WHERE timestamp LIKE ?;"
-            self.cursor.execute(query, (self.date + '%',))
+            self.cursor.execute(query, (self.date + '%', ))
             result = list(self.cursor.fetchone())
             if None in result:
                 print('Die Abfrage hat keine Werte zurückgegeben.')
@@ -38,10 +53,10 @@ class SQLQueries:
         except Exception as error:
             print(str(error))
 
-    def selectHumidity(self):
+    def select_humidity(self):
         try:
             query = "SELECT MAX(humidity) AS max_humid, MIN(humidity) as min_humid, AVG(humidity) as avg_humid FROM tempandhumid WHERE timestamp LIKE ?;"
-            self.cursor.execute(query, (self.date + '%',))
+            self.cursor.execute(query, (self.date + '%', ))
             result = list(self.cursor.fetchone())
             if None in result:
                 print('Die Abfrage hat keine Werte zurückgegeben.')
@@ -54,7 +69,7 @@ class SQLQueries:
         except Exception as error:
             print(str(error))
 
-    def selectFinedust(self):
+    def select_finedust(self):
         try:
             query = "SELECT MAX(P1) AS max_p1, MIN(P1) as min_p1, AVG(P1) as avg_p1, MAX(P2) AS max_p2, MIN(P2) as min_p2, AVG(P2) as avg_p2 FROM finedust WHERE timestamp LIKE ?;"
             self.cursor.execute(query, (self.date + '%', ))
@@ -75,15 +90,16 @@ class SQLQueries:
             print(str(error))
 
     def main(self, query):
-        self.buildconnection()
+        self.build_connection()
+        self.tables_exist()
         if query == '1':
-            self.selectTemperature()
+            self.select_temperature()
         if query == '2':
-            self.selectHumidity()
+            self.select_humidity()
         if query == '3':
-            self.selectFinedust()
+            self.select_finedust()
         if query == '4':
-            self.selectTemperature()
-            self.selectHumidity()
-            self.selectFinedust()
-        self.closeconnection()
+            self.select_temperature()
+            self.select_humidity()
+            self.select_finedust()
+        self.close_connection()
