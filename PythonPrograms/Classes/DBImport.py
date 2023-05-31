@@ -1,5 +1,6 @@
 import sqlite3
 import csv
+import xml.etree.ElementTree as ET
 
 
 class DBImport:
@@ -81,8 +82,50 @@ class DBImport:
         except Exception as error:
             print(str(error))
 
+    def export_data_to_xml(self):
+        try:
+            self.cursor.execute("SELECT * FROM finedust;")
+            finedust_data = self.cursor.fetchall()
+            root_a = ET.Element("data")
+            for row in finedust_data:
+                item = ET.SubElement(root_a, 'item')
+                item.attrib["\nfinedust_id"] = str(row[0])
+                item.attrib["\nsensor_id"] = str(row[1])
+                item.attrib["\nsensor_type"] = str(row[2])
+                item.attrib["\nlocation"] = str(row[3])
+                item.attrib["\nlat"] = str(row[4])
+                item.attrib["\nlon"] = str(row[5])
+                item.attrib["\ntimestamp"] = str(row[6])
+                item.attrib["\nP1"] = str(row[7])
+                item.attrib["\ndurP1"] = str(row[8])
+                item.attrib["\nratioP1"] = str(row[9])
+                item.attrib["\nP2"] = str(row[10])
+                item.attrib["\ndurP2"] = str(row[11])
+                item.attrib["\nratioP2"] = str(row[12])
+            tree_a = ET.ElementTree(root_a)
+            tree_a.write(self.path / "XMLFiles" / "exportedData-finedust.xml")
+            self.cursor.execute("SELECT * FROM tempandhumid;")
+            tempandhumid_data = self.cursor.fetchall()
+            root_b = ET.Element("data")
+            for row in tempandhumid_data:
+                item = ET.SubElement(root_b, 'item')
+                item.attrib["\ntempandhumid_id"] = str(row[0])
+                item.attrib["\nsensor_id"] = str(row[1])
+                item.attrib["\nsensor_type"] = str(row[2])
+                item.attrib["\nlocation"] = str(row[3])
+                item.attrib["\nlat"] = str(row[4])
+                item.attrib["\nlon"] = str(row[5])
+                item.attrib["\ntimestamp"] = str(row[6])
+                item.attrib["\ntemperature"] = str(row[7])
+                item.attrib["\nhumidity"] = str(row[8])
+            tree_b = ET.ElementTree(root_b)
+            tree_b.write(self.path / "XMLFiles" / "exportedData-tempandhumid.xml")
+            print("export xml complete")
+        except Exception as exception:
+            print(str(exception))
     def main(self):
         self.connect_db()
         self.create_tables()
         self.import_csv()
+        self.export_data_to_xml()
         self.connection.close()
