@@ -1,0 +1,20 @@
+<!ELEMENT data (item*)>
+<!ELEMENT item EMPTY>
+<!ATTLIST item
+    finedust_id CDATA #REQUIRED
+    sensor_id CDATA #REQUIRED
+    sensor_type CDATA #REQUIRED
+    location CDATA #REQUIRED
+    lat CDATA #REQUIRED
+    lon CDATA #REQUIRED
+    timestamp CDATA #REQUIRED
+    P1 CDATA #REQUIRED
+    durP1 CDATA #REQUIRED
+    ratioP1 CDATA #REQUIRED
+    P2 CDATA #REQUIRED
+    durP2 CDATA #REQUIRED
+    ratioP2 CDATA #REQUIRED
+    tempandhumid_id CDATA #REQUIRED
+    temperature CDATA #REQUIRED
+    humidity CDATA #REQUIRED
+>
