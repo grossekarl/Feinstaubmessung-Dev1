@@ -59,7 +59,9 @@ class DBImport:
                                row['P2'] if row['P2'] != "" else 'NULL',
                                row['durP2'] if row['durP2'] != "" else 'NULL',
                                row['ratioP2'] if row['ratioP2'] != "" else 'NULL'))
-            self.cursor.executemany("INSERT INTO finedust (sensor_id, sensor_type, location, lat, lon, timestamp, P1, durP1, ratioP1, P2, durP2, ratioP2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", values)
+            self.cursor.executemany(
+                "INSERT INTO finedust (sensor_id, sensor_type, location, lat, lon, timestamp, P1, durP1, ratioP1, P2, durP2, ratioP2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                values)
             self.connection.commit()
         except Exception as error:
             print(str(error))
@@ -77,7 +79,9 @@ class DBImport:
                                row['timestamp'],
                                row['temperature'] if row['temperature'] != "" else 'NULL',
                                row['humidity'] if row['humidity'] != "" else 'NULL'))
-            self.cursor.executemany("INSERT INTO tempandhumid (sensor_id, sensor_type, location, lat, lon, timestamp, temperature, humidity) VALUES (?, ?, ?, ?, ?, ?, ?, ?);", values)
+            self.cursor.executemany(
+                "INSERT INTO tempandhumid (sensor_id, sensor_type, location, lat, lon, timestamp, temperature, humidity) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
+                values)
             self.connection.commit()
         except Exception as error:
             print(str(error))
@@ -89,19 +93,19 @@ class DBImport:
             root_a = ET.Element("data")
             for row in finedust_data:
                 item = ET.SubElement(root_a, 'item')
-                item.attrib["\nfinedust_id"] = str(row[0])
-                item.attrib["\nsensor_id"] = str(row[1])
-                item.attrib["\nsensor_type"] = str(row[2])
-                item.attrib["\nlocation"] = str(row[3])
-                item.attrib["\nlat"] = str(row[4])
-                item.attrib["\nlon"] = str(row[5])
-                item.attrib["\ntimestamp"] = str(row[6])
-                item.attrib["\nP1"] = str(row[7])
-                item.attrib["\ndurP1"] = str(row[8])
-                item.attrib["\nratioP1"] = str(row[9])
-                item.attrib["\nP2"] = str(row[10])
-                item.attrib["\ndurP2"] = str(row[11])
-                item.attrib["\nratioP2"] = str(row[12])
+                item.attrib["finedust_id"] = str(row[0])
+                item.attrib["sensor_id"] = str(row[1])
+                item.attrib["sensor_type"] = str(row[2])
+                item.attrib["location"] = str(row[3])
+                item.attrib["lat"] = str(row[4])
+                item.attrib["lon"] = str(row[5])
+                item.attrib["timestamp"] = str(row[6])
+                item.attrib["P1"] = str(row[7])
+                item.attrib["durP1"] = str(row[8])
+                item.attrib["ratioP1"] = str(row[9])
+                item.attrib["P2"] = str(row[10])
+                item.attrib["durP2"] = str(row[11])
+                item.attrib["ratioP2"] = str(row[12])
             tree_a = ET.ElementTree(root_a)
             tree_a.write(self.path / "XMLFiles" / "exportedData-finedust.xml")
             self.cursor.execute("SELECT * FROM tempandhumid;")
@@ -109,23 +113,27 @@ class DBImport:
             root_b = ET.Element("data")
             for row in tempandhumid_data:
                 item = ET.SubElement(root_b, 'item')
-                item.attrib["\ntempandhumid_id"] = str(row[0])
-                item.attrib["\nsensor_id"] = str(row[1])
-                item.attrib["\nsensor_type"] = str(row[2])
-                item.attrib["\nlocation"] = str(row[3])
-                item.attrib["\nlat"] = str(row[4])
-                item.attrib["\nlon"] = str(row[5])
-                item.attrib["\ntimestamp"] = str(row[6])
-                item.attrib["\ntemperature"] = str(row[7])
-                item.attrib["\nhumidity"] = str(row[8])
+                item.attrib["tempandhumid_id"] = str(row[0])
+                item.attrib["sensor_id"] = str(row[1])
+                item.attrib["sensor_type"] = str(row[2])
+                item.attrib["location"] = str(row[3])
+                item.attrib["lat"] = str(row[4])
+                item.attrib["lon"] = str(row[5])
+                item.attrib["timestamp"] = str(row[6])
+                item.attrib["temperature"] = str(row[7])
+                item.attrib["humidity"] = str(row[8])
             tree_b = ET.ElementTree(root_b)
             tree_b.write(self.path / "XMLFiles" / "exportedData-tempandhumid.xml")
             print("export xml complete")
         except Exception as exception:
             print(str(exception))
-    def main(self):
+
+    def main(self, export):
         self.connect_db()
+        if export:
+            self.export_data_to_xml()
+            self.connection.close()
+            return
         self.create_tables()
         self.import_csv()
-        self.export_data_to_xml()
         self.connection.close()

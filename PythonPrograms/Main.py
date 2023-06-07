@@ -24,7 +24,11 @@ class Main:
 
     def import_data(self):
         importer = DBImport(self.path)
-        importer.main()
+        importer.main(False)
+
+    def export_data(self):
+        importer = DBImport(self.path)
+        importer.main(True)
 
     def query_db(self):
         print("Welche Abfrage wollen Sie ausführen?\n 1. Maximale, Minimale und Durchschittliche Temperatur eines Tages\n 2. Maximale, Minimale und Durchschittliche Luftfeuchtigkeit eines Tages\n 3. Maximale, Minimale und Durchschittliche Feinstaub eines Tages \n 4. Alle\n 1/2/3/4")
@@ -67,27 +71,63 @@ class Main:
                 self.quit()
             elif input2 == 'y':
                 self.import_data()
-                print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
-                input3 = input()
-                self.validator.validate_input(input3)
-                if input3 == 'stop':
+                print("\nWollen Sie die Datenbank Daten in XML-Dateien exportieren? y/n/stop")
+                inputexport = input()
+                self.validator.validate_input(inputexport)
+                if inputexport == 'stop':
                     self.quit()
-                if input3 == 'y':
-                    self.query_db()
-                    self.end_of_program()
-                if input3 == 'n':
-                    self.quit()
+                if inputexport == 'y':
+                    self.export_data()
+                    print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
+                    input3 = input()
+                    self.validator.validate_input(input3)
+                    if input3 == 'stop':
+                        self.quit()
+                    if input3 == 'y':
+                        self.query_db()
+                        self.end_of_program()
+                    if input3 == 'n':
+                        self.end_of_program()
+                if inputexport == 'n':
+                    print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
+                    input3 = input()
+                    self.validator.validate_input(input3)
+                    if input3 == 'stop':
+                        self.quit()
+                    if input3 == 'y':
+                        self.query_db()
+                        self.end_of_program()
+                    if input3 == 'n':
+                        self.end_of_program()
             elif input2 == 'n':
-                print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
-                input3 = input()
-                self.validator.validate_input(input3)
-                if input3 == 'stop':
+                print("\nWollen Sie die Datenbank Daten in XML-Dateien exportieren? y/n/stop")
+                inputexport = input()
+                self.validator.validate_input(inputexport)
+                if inputexport == 'stop':
                     self.quit()
-                if input3 == 'y':
-                    self.query_db()
-                    self.end_of_program()
-                if input3 == 'n':
-                    self.quit()
+                if inputexport == 'y':
+                    self.export_data()
+                    print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
+                    input3 = input()
+                    self.validator.validate_input(input3)
+                    if input3 == 'stop':
+                        self.quit()
+                    if input3 == 'y':
+                        self.query_db()
+                        self.end_of_program()
+                    if input3 == 'n':
+                        self.end_of_program()
+                if inputexport == 'n':
+                    print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
+                    input3 = input()
+                    self.validator.validate_input(input3)
+                    if input3 == 'stop':
+                        self.quit()
+                    if input3 == 'y':
+                        self.query_db()
+                        self.end_of_program()
+                    if input3 == 'n':
+                        self.end_of_program()
         elif input1 == 'n':
             print("\nSollen die lokalen CSV-Daten in die Datenbank importiert werden? y/n/stop")
             input2 = input()
@@ -96,27 +136,63 @@ class Main:
                 self.quit()
             elif input2 == 'y':
                 self.import_data()
-                print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
-                input3 = input()
-                self.validator.validate_input(input3)
-                if input3 == 'stop':
+                print("\nWollen Sie die Datenbank Daten in XML-Dateien exportieren? y/n/stop")
+                inputexport = input()
+                self.validator.validate_input(inputexport)
+                if inputexport == 'stop':
                     self.quit()
-                if input3 == 'y':
-                    self.query_db()
-                    self.end_of_program()
-                if input3 == 'n':
-                    self.end_of_program()
+                if inputexport == 'y':
+                    self.export_data()
+                    print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
+                    input3 = input()
+                    self.validator.validate_input(input3)
+                    if input3 == 'stop':
+                        self.quit()
+                    if input3 == 'y':
+                        self.query_db()
+                        self.end_of_program()
+                    if input3 == 'n':
+                        self.end_of_program()
+                if inputexport == 'n':
+                    print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
+                    input3 = input()
+                    self.validator.validate_input(input3)
+                    if input3 == 'stop':
+                        self.quit()
+                    if input3 == 'y':
+                        self.query_db()
+                        self.end_of_program()
+                    if input3 == 'n':
+                        self.end_of_program()
             elif input2 == 'n':
-                print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
-                input3 = input()
-                self.validator.validate_input(input3)
-                if input3 == 'stop':
+                print("\nWollen Sie die Datenbank Daten in XML-Dateien exportieren? y/n/stop")
+                inputexport = input()
+                self.validator.validate_input(inputexport)
+                if inputexport == 'stop':
                     self.quit()
-                if input3 == 'y':
-                    self.query_db()
-                    self.end_of_program()
-                if input3 == 'n':
-                    self.quit()
+                if inputexport == 'y':
+                    self.export_data()
+                    print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
+                    input3 = input()
+                    self.validator.validate_input(input3)
+                    if input3 == 'stop':
+                        self.quit()
+                    if input3 == 'y':
+                        self.query_db()
+                        self.end_of_program()
+                    if input3 == 'n':
+                        self.end_of_program()
+                if inputexport == 'n':
+                    print("\nWollen Sie eine SQL-Abfrage ausführen? y/n/stop")
+                    input3 = input()
+                    self.validator.validate_input(input3)
+                    if input3 == 'stop':
+                        self.quit()
+                    if input3 == 'y':
+                        self.query_db()
+                        self.end_of_program()
+                    if input3 == 'n':
+                        self.end_of_program()
 
 
 
