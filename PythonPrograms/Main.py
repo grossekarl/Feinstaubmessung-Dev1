@@ -103,7 +103,7 @@ class Main:
                     self.quit()
                 if input3 == 'y':
                     self.query_db()
-                    self.end_of_program()
+                    #self.end_of_program()
                 if input3 == 'n':
                     self.end_of_program()
             elif input2 == 'n':
@@ -114,7 +114,7 @@ class Main:
                     self.quit()
                 if input3 == 'y':
                     self.query_db()
-                    self.end_of_program()
+                    #self.end_of_program()
                 if input3 == 'n':
                     self.quit()
 
